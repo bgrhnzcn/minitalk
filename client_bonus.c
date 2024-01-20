@@ -1,16 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   client.c                                           :+:      :+:    :+:   */
+/*   client_bonus.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: bgrhnzcn <bgrhnzcn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/19 01:52:39 by bgrhnzcn          #+#    #+#             */
-/*   Updated: 2024/01/20 20:44:41 by bgrhnzcn         ###   ########.fr       */
+/*   Updated: 2024/01/20 20:47:41 by bgrhnzcn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minitalk.h"
+
+int	g_received = 0;
+
+static void	sig_handler(int sig)
+{
+	(void)sig;
+	g_received++;
+}
 
 static long	send_signal(int pid, char *str)
 {
@@ -45,6 +53,7 @@ int	main(int argc, char **argv)
 {
 	unsigned int		i;
 	unsigned int		send;
+	struct sigaction	sa;
 
 	i = 0;
 	if (argc != 3)
@@ -60,7 +69,9 @@ int	main(int argc, char **argv)
 			exit(EXIT_FAILURE);
 		}
 	}
+	sa.sa_handler = &sig_handler;
+	sigaction(SIGUSR1, &sa, 0);
 	send = send_signal(ft_atoi(argv[1]), argv[2]);
-	ft_printf("Send: %u\n", send);
+	ft_printf("Send: %u\nReceived: %u\n", send, g_received);
 	return (0);
 }

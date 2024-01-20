@@ -1,6 +1,10 @@
 SRCS = client.c server.c
 
+BONUS_SRCS = client_bonus.c server_bonus.c
+
 OBJ = $(SRCS:.c=.o)
+
+BONUS_OBJ = $(BONUS_SRCS:.c=.o)
 
 CC = gcc
 
@@ -21,9 +25,17 @@ server:
 client:
 	$(CC) $(CFLAGS) -o client client.o libft/libft.a ft_printf/libftprintf.a
 
+server_bonus:
+	$(CC) $(CFLAGS) -o server server_bonus.o libft/libft.a ft_printf/libftprintf.a
+
+client_bonus:
+	$(CC) $(CFLAGS) -o client client_bonus.o libft/libft.a ft_printf/libftprintf.a
+
 libs:
 	cd libft && make
 	cd ft_printf && make
+
+bonus: libs $(BONUS_OBJ) client_bonus server_bonus
 
 clean:
 	rm -f *.o

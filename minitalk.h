@@ -1,42 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   server.c                                           :+:      :+:    :+:   */
+/*   minitalk.h                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: bgrhnzcn <bgrhnzcn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/01/19 02:51:41 by bgrhnzcn          #+#    #+#             */
-/*   Updated: 2024/01/20 21:00:52 by bgrhnzcn         ###   ########.fr       */
+/*   Created: 2024/01/20 18:59:36 by bgrhnzcn          #+#    #+#             */
+/*   Updated: 2024/01/20 19:04:33 by bgrhnzcn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minitalk.h"
+#ifndef MINITALK_H
+# define MINITALK_H
 
-void	handle_sigusr(int sig)
-{
-	static char	c;
-	static int	i = 7;
+# ifdef __linux__
+#  define _DEFAULT_SOURCE
+#  define _XOPEN_SOURCE 700
+# endif
 
-	if (sig == SIGUSR1)
-		c |= (1 << i);
-	i--;
-	if (i < 0)
-	{
-		ft_putchar(c);
-		c = 0;
-		i = 7;
-	}
-}
+# include "libft.h"
+# include "ft_printf.h"
+# include <unistd.h>
+# include <signal.h>
 
-int	main(void)
-{
-	struct sigaction	sa;
-
-	ft_printf("Server PID: %d\n", getpid());
-	sa.sa_handler = &handle_sigusr;
-	sigaction(SIGUSR1, &sa, 0);
-	sigaction(SIGUSR2, &sa, 0);
-	while (1)
-		usleep(1);
-	return (0);
-}
+#endif
