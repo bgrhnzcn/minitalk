@@ -6,19 +6,43 @@
 /*   By: bgrhnzcn <bgrhnzcn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/19 01:52:39 by bgrhnzcn          #+#    #+#             */
-/*   Updated: 2024/01/19 03:36:27 by bgrhnzcn         ###   ########.fr       */
+/*   Updated: 2024/01/20 17:19:40 by bgrhnzcn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#define _DEFAULT_SOURCE
+#define _XOPEN_SOURCE 700
+#define WAIT_TIME 100
 #include "libft.h"
 #include "ft_printf.h"
+#include <unistd.h>
 #include <signal.h>
+
+void	send_signal(int pid, char *str)
+{
+	int	i;
+
+	while (*str)
+	{
+		i = (sizeof(char) * 8) - 1;
+		while (i >= 0)
+		{
+			if (*str & (1 << i))
+				kill(pid, SIGUSR1);
+			else
+				kill(pid, SIGUSR2);
+			pause();
+			//ft_printf("worked");
+			i--;
+		}
+		str++;
+	}
+}
 
 int	main(int argc, char **argv)
 {
 	int		i;
 	int		pid;
-	char	*message;
 
 	i = 0;
 	if (argc != 3)
@@ -35,7 +59,7 @@ int	main(int argc, char **argv)
 		}
 	}
 	pid = ft_atoi(argv[1]);
-	message = argv[2];
-	ft_printf("%s, %d\n", message, pid);
+	ft_printf("%s, %d\n", argv[2], getpid());
+	send_signal(pid, argv[2]);
 	return (0);
 }

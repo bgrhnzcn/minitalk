@@ -13,7 +13,7 @@ CFLAGS = -Wall -Werror -Wextra
 
 all: $(NAME)
 
-$(NAME): libs $(OBJ) server client
+$(NAME): libs $(OBJ) client server 
 
 server:
 	$(CC) $(CFLAGS) -o server server.o libft/libft.a ft_printf/libftprintf.a
