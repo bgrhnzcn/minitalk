@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   server_bonus.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bgrhnzcn <bgrhnzcn@student.42.fr>          +#+  +:+       +#+        */
+/*   By: buozcan <buozcan@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/19 02:51:41 by bgrhnzcn          #+#    #+#             */
-/*   Updated: 2024/01/20 20:45:42 by bgrhnzcn         ###   ########.fr       */
+/*   Updated: 2024/03/24 10:22:47 by buozcan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,7 @@ void	handle_sigusr(int sig, siginfo_t *info, void *context)
 		c = 0;
 		i = 7;
 	}
+	usleep(5000);
 	kill(info->si_pid, SIGUSR1);
 }
 

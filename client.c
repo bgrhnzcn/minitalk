@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   client.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bgrhnzcn <bgrhnzcn@student.42.fr>          +#+  +:+       +#+        */
+/*   By: buozcan <buozcan@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/19 01:52:39 by bgrhnzcn          #+#    #+#             */
-/*   Updated: 2024/01/20 20:44:41 by bgrhnzcn         ###   ########.fr       */
+/*   Updated: 2024/03/24 09:58:18 by buozcan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,12 +26,12 @@ static long	send_signal(int pid, char *str)
 			if (*str & (1 << i))
 			{
 				kill(pid, SIGUSR1);
-				usleep(5000);
+				usleep(50);
 			}
 			else
 			{
 				kill(pid, SIGUSR2);
-				usleep(5000);
+				usleep(50);
 			}
 			send++;
 			i--;
